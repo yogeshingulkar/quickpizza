@@ -12,7 +12,7 @@ x-quickpizza-env-common: &quickpizza-env-common
 name: quickpizza
 services:
   alloy:
-    image: grafana/alloy:v1.16.2
+    image: grafana/alloy:v1.17.1
     container_name: alloy
     labels:
       - "service.type=instrumentation"
@@ -157,7 +157,7 @@ services:
       QUICKPIZZA_OTEL_SERVICE_NAME: "grpc"
 
   quickpizza-db:
-    image: postgres:18.1
+    image: postgres:18.3
     container_name: quickpizza-db
     labels:
       - "service.type=database"
