@@ -1,5 +1,5 @@
 # node:24-alpine
-FROM node:24-alpine@sha256:2bdb65ed1dab192432bc31c95f94155ca5ad7fc1392fb7eb7526ab682fa5bf14 AS fe-builder
+FROM node:24-alpine@sha256:a0b9bf06e4e6193cf7a0f58816cc935ff8c2a908f81e6f1a95432d679c54fbfd AS fe-builder
 
 WORKDIR /app/pkg/web
 COPY pkg/web ./
@@ -14,7 +14,7 @@ RUN npm install && \
     npm run build
 
 # golang:1.26-alpine
-FROM golang:1.26-alpine@sha256:f23e8b227fb4493eabe03bede4d5a32d04092da71962f1fb79b5f7d1e6c2a17f AS builder
+FROM golang:1.26-alpine@sha256:0178a641fbb4858c5f1b48e34bdaabe0350a330a1b1149aabd498d0699ff5fb2 AS builder
 
 WORKDIR /app
 COPY . ./
@@ -24,7 +24,7 @@ COPY --from=fe-builder /app/pkg/web/build /app/pkg/web/build
 RUN CGO_ENABLED=0 go build -o /bin/quickpizza ./cmd
 
 # gcr.io/distroless/static-debian12
-FROM gcr.io/distroless/static-debian12@sha256:9c346e4be81b5ca7ff31a0d89eaeade58b0f95cfd3baed1f36083ddb47ca3160
+FROM gcr.io/distroless/static-debian12@sha256:22fd79fd75eab2372585b44517f8a094349938919dc613aafc37e4bdc9967c82
 
 COPY --from=builder /bin/quickpizza /bin
 EXPOSE 3333 3334 3335
