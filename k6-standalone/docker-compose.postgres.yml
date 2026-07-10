@@ -1,0 +1,23 @@
+# Optional overlay for k6/extensions/03.postgresql.js
+# Usage: docker compose -f docker-compose.yml -f docker-compose.postgres.yml up -d
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: quickpizza_db
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  quickpizza:
+    environment:
+      QUICKPIZZA_DB: postgres://postgres:postgres@postgres:5432/quickpizza_db?sslmode=disable
+    depends_on:
+      postgres:
+        condition: service_healthy

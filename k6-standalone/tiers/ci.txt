@@ -1,0 +1,4 @@
+# Same tiers as .github/workflows/ci.yaml (foundations + auth + browser + quickpizzaext)
+@include basic
+@include auth
+@include browser

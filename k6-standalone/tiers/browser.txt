@@ -1,0 +1,7 @@
+browser/01.basic.js
+browser/02.cookies.js
+browser/03.thresholds.js
+browser/04.scenarios.js
+browser/05.custom-metrics.js
+browser/06.page-objects.js
+browser/07.hybrid.js

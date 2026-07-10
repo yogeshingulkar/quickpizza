@@ -1,0 +1,16 @@
+# Minimal QuickPizza target for k6 HTTP, browser, auth, and websocket tiers.
+# Usage: docker compose up -d
+services:
+  quickpizza:
+    image: ${QUICKPIZZA_IMAGE:-ghcr.io/grafana/quickpizza-local:latest}
+    ports:
+      - "3333:3333"
+      - "3334:3334" # gRPC (tier: grpc)
+    environment:
+      QUICKPIZZA_ENABLE_ALL_SERVICES: "true"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3333/"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
